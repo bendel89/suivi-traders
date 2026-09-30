@@ -3,113 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Suivi Traders Binance</title>
+<title>Crypto Live</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,sans-serif;background:#0a0e1a;color:#e8ecf8;min-height:100vh;padding:1rem 1rem 4rem;font-size:15px;line-height:1.5;max-width:900px;margin:0 auto}
-h1{text-align:center;font-size:1.4rem;margin-bottom:0.3rem;background:linear-gradient(135deg,#4a9eff,#7c5cff,#d94aff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1{text-align:center;font-size:1.5rem;margin-bottom:0.3rem;background:linear-gradient(135deg,#4a9eff,#7c5cff,#d94aff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .sub{text-align:center;font-size:0.78rem;color:#8892b0;margin-bottom:1rem}
+.top-bar{display:flex;gap:0.5rem;margin-bottom:1rem}
+.top-bar input{flex:1;padding:0.8rem 1rem;border-radius:10px;border:1px solid #2a3350;background:#131829;color:#e8ecf8;font-family:inherit;font-size:0.9rem}
+.top-bar input:focus{outline:none;border-color:#4a9eff}
+.top-bar button{padding:0.8rem 1.2rem;border-radius:10px;border:none;background:linear-gradient(135deg,#4a9eff,#7c5cff);color:#fff;font-family:inherit;font-weight:600;cursor:pointer}
+.top-bar button:active{transform:scale(0.97)}
 .filters{display:flex;gap:0.3rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:0.3rem}
-.filters button{flex-shrink:0;padding:0.6rem 0.9rem;border-radius:20px;border:1px solid #2a3350;background:#131829;color:#8892b0;font-family:inherit;font-size:0.75rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.filters button{flex-shrink:0;padding:0.55rem 0.9rem;border-radius:20px;border:1px solid #2a3350;background:#131829;color:#8892b0;font-family:inherit;font-size:0.75rem;font-weight:600;cursor:pointer;white-space:nowrap}
 .filters button.active{background:linear-gradient(135deg,#4a9eff,#7c5cff);color:#fff;border-color:transparent}
-.panel{background:#131829;border:1px solid #2a3350;border-radius:12px;padding:0.8rem;margin-bottom:1rem}
-.trader{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 0.5rem;border-bottom:1px solid #1f2740;gap:0.6rem}
-.trader:last-child{border-bottom:none}
-.trader-left{flex:1;min-width:0}
-.trader-rank{font-size:0.65rem;color:#4a5578;font-weight:600}
-.trader-name{font-weight:600;font-size:0.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:0.1rem}
-.trader-stats{font-size:0.68rem;color:#8892b0;margin-top:0.25rem;line-height:1.4}
-.trader-right{text-align:right;flex-shrink:0}
-.roi{font-size:1.05rem;font-weight:700;color:#6ee7a3;font-family:ui-monospace,monospace}
-.roi.negative{color:#e07070}
-.pnl{font-size:0.68rem;color:#8892b0;margin-top:0.15rem}
+.panel{background:#131829;border:1px solid #2a3350;border-radius:12px;padding:0.6rem;margin-bottom:1rem}
+.coin{display:flex;justify-content:space-between;align-items:center;padding:0.8rem 0.5rem;border-bottom:1px solid #1f2740;gap:0.6rem}
+.coin:last-child{border-bottom:none}
+.coin-left{display:flex;align-items:center;gap:0.7rem;flex:1;min-width:0}
+.coin-rank{font-size:0.7rem;color:#4a5578;font-weight:700;width:1.8rem;flex-shrink:0}
+.coin-img{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:#1a2036}
+.coin-info{min-width:0;flex:1}
+.coin-name{font-weight:600;font-size:0.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.coin-symbol{font-size:0.7rem;color:#8892b0;text-transform:uppercase;letter-spacing:0.05em;margin-top:0.1rem}
+.coin-right{text-align:right;flex-shrink:0}
+.coin-price{font-size:0.95rem;font-weight:700;font-family:ui-monospace,monospace}
+.coin-change{font-size:0.72rem;font-weight:600;margin-top:0.15rem}
+.coin-change.up{color:#6ee7a3}
+.coin-change.down{color:#e07070}
 .loading{text-align:center;color:#8892b0;padding:2rem;font-size:0.85rem}
-.error{color:#e07070;text-align:center;padding:1rem;font-size:0.85rem}
 .spinner{width:16px;height:16px;border:2px solid rgba(74,158,255,0.3);border-top-color:#4a9eff;border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block;vertical-align:middle;margin-right:0.5rem}
 @keyframes spin{to{transform:rotate(360deg)}}
-.note{font-size:0.7rem;color:#4a5578;text-align:center;margin-top:1rem;line-height:1.5;padding:0.8rem}
+.error{color:#e07070;text-align:center;padding:1.5rem;font-size:0.85rem}
+.updated{text-align:center;font-size:0.7rem;color:#4a5578;margin-top:0.8rem}
+.note{font-size:0.68rem;color:#4a5578;text-align:center;margin-top:1rem;line-height:1.5}
 </style>
 </head>
 <body>
 
-<h1>🏆 Top Traders Binance</h1>
-<p class="sub">Classement public — analyse leurs performances</p>
+<h1>💎 Crypto Live</h1>
+<p class="sub">Prix en temps réel · Données CoinGecko</p>
+
+<div class="top-bar">
+<input type="text" id="search" placeholder="Rechercher (bitcoin, ethereum...)">
+<button id="btnSearch">🔍</button>
+</div>
 
 <div class="filters" id="filters">
-<button class="active" data-stat="ROI" data-period="WEEKLY">ROI · Semaine</button>
-<button data-stat="ROI" data-period="MONTHLY">ROI · Mois</button>
-<button data-stat="PNL" data-period="WEEKLY">P&L · Semaine</button>
-<button data-stat="PNL" data-period="MONTHLY">P&L · Mois</button>
+<button class="active" data-cur="usd" data-per="1h">USD · 1h</button>
+<button data-cur="usd" data-per="24h">USD · 24h</button>
+<button data-cur="usd" data-per="7d">USD · 7j</button>
+<button data-cur="eur" data-per="24h">EUR · 24h</button>
+<button data-cur="eur" data-per="7d">EUR · 7j</button>
 </div>
 
 <div class="panel" id="list">
-<div class="loading"><span class="spinner"></span>Chargement des traders…</div>
+<div class="loading"><span class="spinner"></span>Chargement des cryptos…</div>
 </div>
 
-<p class="note">
-⚠️ Données publiques Binance · Pas de conseil financier<br>
-Le copy-trading automatique nécessite une clé API privée + un serveur sécurisé.<br>
-Utilise ces données pour <strong>analyser</strong> les stratégies.
-</p>
+<p class="updated" id="updated"></p>
+<p class="note">⚠️ Données indicatives · Pas un conseil financier</p>
 
 <script>
-var currentStat='ROI';
-var currentPeriod='WEEKLY';
+var currentCur='usd';
+var currentPer='1h';
+var apiBase='https://api.coingecko.com/api/v3';
 
-function charger(){
+function formatPrice(v,cur){
+if(v===null||v===undefined)return '—';
+var sym=cur==='eur'?'€':'$';
+if(v>=1000)return sym+v.toLocaleString('fr-FR',{maximumFractionDigits:0});
+if(v>=1)return sym+v.toLocaleString('fr-FR',{maximumFractionDigits:2});
+if(v>=0.01)return sym+v.toLocaleString('fr-FR',{maximumFractionDigits:4});
+return sym+v.toLocaleString('fr-FR',{maximumFractionDigits:8});
+}
+
+function formatChange(v){
+if(v===null||v===undefined)return '—';
+var sign=v>=0?'+':'';
+return sign+v.toFixed(2)+'%';
+}
+
+function charger(query){
 var list=document.getElementById('list');
 list.innerHTML='<div class="loading"><span class="spinner"></span>Chargement…</div>';
 
-fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.binance.com/bapi/futures/v1/public/future/leaderboard/getLeaderboardRank'),{
-method:'POST',
-headers:{'Content-Type':'application/json'},
-body:JSON.stringify({
-tradeType:'PERPETUAL',
-statisticsType:currentStat,
-periodType:currentPeriod,
-isShared:true,
-isTrader:false
-})
-})
+var url;
+if(query){
+url=apiBase+'/search?query='+encodeURIComponent(query);
+fetch(url)
 .then(function(r){return r.json();})
 .then(function(data){
-if(!data.data||!data.data.length){
-list.innerHTML='<div class="error">Aucun trader trouvé pour ces critères</div>';
+if(!data.coins||!data.coins.length){
+list.innerHTML='<div class="error">Aucune crypto trouvée pour "'+query+'"</div>';
+return;
+}
+var ids=data.coins.slice(0,20).map(function(c){return c.id;}).join(',');
+chargerDetails(ids);
+})
+.catch(function(e){
+list.innerHTML='<div class="error">Erreur : '+e.message+'</div>';
+});
+}else{
+url=apiBase+'/coins/markets?vs_currency='+currentCur+'&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage='+currentPer;
+fetch(url)
+.then(function(r){return r.json();})
+.then(function(data){
+afficher(data);
+})
+.catch(function(e){
+list.innerHTML='<div class="error">Erreur : '+e.message+'</div>';
+});
+}
+}
+
+function chargerDetails(ids){
+var url=apiBase+'/coins/markets?vs_currency='+currentCur+'&ids='+ids+'&order=market_cap_desc&sparkline=false&price_change_percentage='+currentPer;
+fetch(url)
+.then(function(r){return r.json();})
+.then(function(data){afficher(data);})
+.catch(function(e){document.getElementById('list').innerHTML='<div class="error">Erreur : '+e.message+'</div>';});
+}
+
+function afficher(data){
+var list=document.getElementById('list');
+if(!data||!data.length){
+list.innerHTML='<div class="error">Aucune donnée reçue</div>';
 return;
 }
 var html='';
-data.data.slice(0,30).forEach(function(t,idx){
-var roi=parseFloat(t.roi||0);
-var pnl=parseFloat(t.pnl||0);
-var cls=roi>=0?'roi':'roi negative';
-var sign=roi>=0?'+':'';
-html+='<div class="trader">'+
-'<div class="trader-left">'+
-'<div class="trader-rank">#'+(idx+1)+'</div>'+
-'<div class="trader-name">'+t.nickName+'</div>'+
-'<div class="trader-stats">Drawdown max: '+parseFloat(t.maxDrawdown||0).toFixed(1)+'% · Trades: '+(t.tradeCount||0)+'</div>'+
+data.forEach(function(c,idx){
+var price=c.current_price;
+var change;
+if(currentPer==='1h')change=c.price_change_percentage_1h_in_currency;
+else if(currentPer==='24h')change=c.price_change_percentage_24h;
+else change=c.price_change_percentage_7d_in_currency;
+
+var cls=change>=0?'coin-change up':'coin-change down';
+html+='<div class="coin">'+
+'<div class="coin-left">'+
+'<div class="coin-rank">#'+(c.market_cap_rank||idx+1)+'</div>'+
+'<img class="coin-img" src="'+c.image+'" alt="" loading="lazy">'+
+'<div class="coin-info">'+
+'<div class="coin-name">'+c.name+'</div>'+
+'<div class="coin-symbol">'+c.symbol+'</div>'+
 '</div>'+
-'<div class="trader-right">'+
-'<div class="'+cls+'">'+sign+roi.toFixed(1)+'%</div>'+
-'<div class="pnl">'+sign+pnl.toFixed(0)+' USDT</div>'+
+'</div>'+
+'<div class="coin-right">'+
+'<div class="coin-price">'+formatPrice(price,currentCur)+'</div>'+
+'<div class="'+cls+'">'+formatChange(change)+'</div>'+
 '</div>'+
 '</div>';
 });
 list.innerHTML=html;
-})
-.catch(function(e){
-list.innerHTML='<div class="error">Erreur de chargement : '+e.message+'<br><br>Vérifie que tu es connecté à Internet</div>';
-});
+var now=new Date();
+document.getElementById('updated').textContent='Mis à jour à '+now.toLocaleTimeString('fr-FR');
 }
 
 document.querySelectorAll('#filters button').forEach(function(btn){
 btn.addEventListener('click',function(){
 document.querySelectorAll('#filters button').forEach(function(b){b.classList.remove('active');});
 btn.classList.add('active');
-currentStat=btn.dataset.stat;
-currentPeriod=btn.dataset.period;
+currentCur=btn.dataset.cur;
+currentPer=btn.dataset.per;
+document.getElementById('search').value='';
 charger();
 });
+});
+
+document.getElementById('btnSearch').addEventListener('click',function(){
+var q=document.getElementById('search').value.trim();
+charger(q||null);
+});
+
+document.getElementById('search').addEventListener('keydown',function(e){
+if(e.key==='Enter'){
+e.preventDefault();
+var q=this.value.trim();
+charger(q||null);
+}
 });
 
 charger();
