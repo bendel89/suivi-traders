@@ -60,7 +60,7 @@ function charger(){
 var list=document.getElementById('list');
 list.innerHTML='<div class="loading"><span class="spinner"></span>Chargement…</div>';
 
-fetch('https://www.binance.com/bapi/futures/v1/public/future/leaderboard/getLeaderboardRank',{
+fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.binance.com/bapi/futures/v1/public/future/leaderboard/getLeaderboardRank'),{
 method:'POST',
 headers:{'Content-Type':'application/json'},
 body:JSON.stringify({
